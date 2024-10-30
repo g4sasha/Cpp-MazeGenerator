@@ -5,38 +5,34 @@
 #include <random>
 #include <SFML/Graphics.hpp>
 
-// Класс генератора лабиринтов
-class MazeGenerator {
+class MazeGenerator
+{
 public:
-    static const int CELL_SIZE = 20; // Размер клетки
+    // Конструктор
     MazeGenerator(int width, int height);
-    
-    // Генерация лабиринта
+
+    // Команды
     void generateMaze();
-    
-    // Получение лабиринта
-    const std::vector<std::vector<bool>>& getMaze() const;
+    void findPath(int x, int y, sf::RenderWindow &window);
+    void resetRobot();
 
-    // Поиск пути
-    void findPath(int x, int y, sf::RenderWindow& window);
-    
-    // Сброс состояния робота
-    void resetRobot(); 
-
-    // Получение пути
-    const std::vector<sf::Vector2i>& getPath() const;
+    // Геттеры
+    const std::vector<std::vector<bool>> &getMaze() const;
+    const std::vector<sf::Vector2i> &getPath() const;
 
 private:
-    // Метод, создающий путь в лабиринте
-    void carvePath(int x, int y);
-    
-    int width, height; // Размеры лабиринта
-    std::vector<std::vector<bool>> maze; // Лабиринт
-    std::vector<std::vector<bool>> robotVisited; // Посещенные клетки роботом
-    std::mt19937 rng; // Генератор случайных чисел
+    // Свойства
+    int width, height;
+    std::vector<std::vector<bool>> visited;
+    std::vector<std::vector<bool>> robotVisited;
+    std::mt19937 rng;
 
-    std::vector<sf::Vector2i> path; // Хранение найденного пути
-    bool pathFound; // Найден ли путь
+    // Данные
+    std::vector<sf::Vector2i> path;
+    bool pathFound;
+
+    // Методы
+    void carvePath(int x, int y);
 };
 
-#endif // MAZEGENERATOR_H
+#endif
